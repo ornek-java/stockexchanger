@@ -28,7 +28,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"name\" : \"THYAO\",\r\n\"description\": \"THY AO Stock\",\r\n\"currentPrice\": 290,\r\n\"lastUpdate\": \"2024-07-27T14:47:00.000+03:00\"\r\n}",
+					"raw": "{\r\n\"name\" : \"THYAO\",\r\n\"description\": \"THY AO Stock-2\",\r\n\"currentPrice\": 290,\r\n\"lastUpdate\": \"2024-07-27T15:35:00.000+03:00\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,6 +81,51 @@
 						"v1",
 						"stock",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStockPriceRequest",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "stockUser",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newPrice\" : 308\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/stock/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"stock",
+						"6"
 					]
 				}
 			},
