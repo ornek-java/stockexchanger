@@ -40,7 +40,7 @@ public class SecurityConfig {
 	@Bean
 	public UserDetailsService userDetailsService(PasswordEncoder encoder) {
 		List<UserDetails> usersList = new ArrayList<>();
-		usersList.add(new User("stockexchanger", encoder.encode("pass1234"), 
+		usersList.add(new User("stockUser", encoder.encode("pass1234"), 
 									Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
 		usersList.add(new User("admin", encoder.encode("password1"), 
 				Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
@@ -52,7 +52,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
 		        .authorizeHttpRequests(auth -> auth
-		                .requestMatchers("/userResource").hasRole("USER")
+		                .requestMatchers("/stock").hasRole("USER")
 		                .requestMatchers("/adminResource").hasRole("ADMIN")
 		                .requestMatchers("/publicResource").permitAll()
 		            )
