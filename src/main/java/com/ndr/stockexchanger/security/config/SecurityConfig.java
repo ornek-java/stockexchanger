@@ -52,7 +52,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
 		        .authorizeHttpRequests(auth -> auth
-		                .requestMatchers("/stock").hasRole("USER")
+		                .requestMatchers("/api/v1/stock").hasRole("USER")
 		                .requestMatchers("/adminResource").hasRole("ADMIN")
 		                .requestMatchers("/publicResource").permitAll()
 		            )

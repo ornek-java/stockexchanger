@@ -2,6 +2,7 @@ package com.ndr.stockexchanger.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class StockApiController {
 	private StockService stockService;
 	
 	@PostMapping()
-	public StockDTO createStock(StockDTO requestStockDto) {
+	public StockDTO createStock(@RequestBody StockDTO requestStockDto) {
 		StockDTO responseStockDto= stockService.createStock(requestStockDto);
 		return responseStockDto;
 	}
