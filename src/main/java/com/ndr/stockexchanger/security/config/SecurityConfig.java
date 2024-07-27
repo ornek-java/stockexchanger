@@ -53,6 +53,7 @@ public class SecurityConfig {
 		return http.csrf(csrf -> csrf.disable())
 		        .authorizeHttpRequests(auth -> auth
 		                .requestMatchers("/api/v1/stock").hasRole("USER")
+		                .requestMatchers("/api/v1/stock/**").hasRole("USER")
 		                .requestMatchers("/adminResource").hasRole("ADMIN")
 		                .requestMatchers("/publicResource").permitAll()
 		            )

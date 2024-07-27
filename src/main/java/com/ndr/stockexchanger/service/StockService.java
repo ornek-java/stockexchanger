@@ -30,4 +30,9 @@ public class StockService {
 		return responseStockDTO;
 	}
 
+
+	public void deleteStock(Long stockId) {
+		stockRepository.deleteById(stockId);
+	}
+
 }

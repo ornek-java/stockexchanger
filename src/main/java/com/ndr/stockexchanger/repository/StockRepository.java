@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.ndr.stockexchanger.domain.Stock;
 
 @Repository
-public interface StockRepository extends CrudRepository<Stock, String> {
+public interface StockRepository extends CrudRepository<Stock, Long> {
 
 	
 

@@ -3,12 +3,24 @@ package com.ndr.stockexchanger.api.dto;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+import jakarta.validation.constraints.NotNull;
+
+
+
 public class StockDTO {
 	
 	private Long id;
+	
+	@NotNull(message = "Name cannot be empty!..")
 	private String name;
+	
+	@NotNull(message = "Description cannot be empty!..")
 	private String description;
+	
+	@NotNull(message = "Current Price cannot be empty!..")
 	private BigDecimal currentPrice;
+	
+	@NotNull(message = "Last Update time Price cannot be empty!..")
 	private ZonedDateTime lastUpdate;
 	
 	public ZonedDateTime getLastUpdate() {
