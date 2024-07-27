@@ -1,13 +1,17 @@
 package com.ndr.stockexchanger.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ndr.stockexchanger.api.dto.PriceUpdateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockDTO;
 import com.ndr.stockexchanger.service.StockService;
 
@@ -27,19 +31,19 @@ public class StockApiController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public Boolean deleteStock(@PathVariable("id") Long stockId) {
-		stockService.deleteStock(stockId);
-		return true;
-	}
-	/*
-	@GetMapping("/adminResource")
-	public String getAdminResource() {
-		return "Admin Resource1";
+	public ResponseEntity<Void> deleteStock(@PathVariable("id") Long stockId) {
+		if ( !stockService.deleteStock(stockId) )
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
-	@GetMapping("/publicResource")
-	public String getPublicResource() {
-		return "Public Resource";
-	}*/
+	@PatchMapping("/{id}")
+	public ResponseEntity<StockDTO> updatePrice(@PathVariable("id") Long stockId, @Valid @RequestBody PriceUpdateRequestDTO priceUpdateRequest) {
+		StockDTO updatedStockDTO = stockService.updatePrice(stockId, priceUpdateRequest);
+		if ( updatedStockDTO != null ) {
+			return ResponseEntity.status(HttpStatus.OK).body(updatedStockDTO);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
 	
 }
