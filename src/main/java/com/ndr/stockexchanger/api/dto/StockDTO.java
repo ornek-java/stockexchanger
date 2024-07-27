@@ -20,7 +20,6 @@ public class StockDTO {
 	@NotNull(message = "Current Price cannot be empty!..")
 	private BigDecimal currentPrice;
 	
-	@NotNull(message = "Last Update time Price cannot be empty!..")
 	private ZonedDateTime lastUpdate;
 	
 	public ZonedDateTime getLastUpdate() {
