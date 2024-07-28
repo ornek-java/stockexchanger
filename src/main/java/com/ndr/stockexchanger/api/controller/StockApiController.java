@@ -42,7 +42,7 @@ public class StockApiController {
 		} catch (StockCannotBeDeletedException e) {
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
 		}
-		return ResponseEntity.status(HttpStatus.OK).build();
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 	@PatchMapping("/{id}")
