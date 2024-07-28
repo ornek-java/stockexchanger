@@ -3,8 +3,8 @@ package com.ndr.stockexchanger.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ndr.stockexchanger.api.dto.CreateStockExchangeRequestDTO;
-import com.ndr.stockexchanger.api.dto.CreateStockExchangeResponseDTO;
+import com.ndr.stockexchanger.api.dto.StockExchangeCreateRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockExchangeCreateResponseDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeAddStockRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeListResponseDTO;
 import com.ndr.stockexchanger.domain.Stock;
@@ -25,7 +25,7 @@ public class StockExchangeService {
 	
 	
 
-	public CreateStockExchangeResponseDTO createStockExchange(@Valid CreateStockExchangeRequestDTO requestDto) {
+	public StockExchangeCreateResponseDTO createStockExchange(@Valid StockExchangeCreateRequestDTO requestDto) {
 		StockExchange stockExchange = new StockExchange();
 		stockExchange.setName(requestDto.getName());
 		stockExchange.setDescription(requestDto.getDescription());
@@ -35,8 +35,8 @@ public class StockExchangeService {
 		return generateResponseDTO(stockExchange);
 	}
 
-	private CreateStockExchangeResponseDTO generateResponseDTO(StockExchange stockExchange) {
-		CreateStockExchangeResponseDTO responseDTO = new CreateStockExchangeResponseDTO();
+	private StockExchangeCreateResponseDTO generateResponseDTO(StockExchange stockExchange) {
+		StockExchangeCreateResponseDTO responseDTO = new StockExchangeCreateResponseDTO();
 		responseDTO.setId(stockExchange.getId());
 		responseDTO.setName(stockExchange.getName());
 		responseDTO.setDescription(stockExchange.getDescription());

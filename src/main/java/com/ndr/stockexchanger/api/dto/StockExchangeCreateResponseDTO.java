@@ -1,6 +1,6 @@
 package com.ndr.stockexchanger.api.dto;
 
-public class CreateStockExchangeResponseDTO {
+public class StockExchangeCreateResponseDTO {
 
 	private Long id;
 	private String name;

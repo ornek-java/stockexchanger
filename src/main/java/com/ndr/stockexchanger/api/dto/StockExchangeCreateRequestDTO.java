@@ -2,7 +2,7 @@ package com.ndr.stockexchanger.api.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-public class CreateStockExchangeRequestDTO {
+public class StockExchangeCreateRequestDTO {
 
 	@NotNull(message = "Name cannot be empty!..")
 	private String name;

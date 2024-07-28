@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ndr.stockexchanger.api.dto.CreateStockExchangeRequestDTO;
-import com.ndr.stockexchanger.api.dto.CreateStockExchangeResponseDTO;
+import com.ndr.stockexchanger.api.dto.StockExchangeCreateRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockExchangeCreateResponseDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeAddStockRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeListResponseDTO;
@@ -28,8 +28,8 @@ public class StockExchangeApiController {
 	private StockExchangeService stockExchangeService;
 	
 	@PostMapping
-	public CreateStockExchangeResponseDTO createStockExchange(@Valid @RequestBody CreateStockExchangeRequestDTO requestDto) {
-		CreateStockExchangeResponseDTO responseDto= stockExchangeService.createStockExchange(requestDto);
+	public StockExchangeCreateResponseDTO createStockExchange(@Valid @RequestBody StockExchangeCreateRequestDTO requestDto) {
+		StockExchangeCreateResponseDTO responseDto= stockExchangeService.createStockExchange(requestDto);
 		return responseDto;
 	}
 	
