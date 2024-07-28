@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 @Entity
 @Table(name="STOCK_EXCHANGES")
@@ -23,6 +24,9 @@ public class StockExchange {
 	
 	@Column(name = "LIVE_IN_MARKET")
 	private Boolean isLiveInMarket;
+	
+	@Version
+	private Long Version;
 	
 	
 	public Long getId() {
@@ -48,6 +52,9 @@ public class StockExchange {
 	}
 	public void setIsLiveInMarket(Boolean isLiveInMarket) {
 		this.isLiveInMarket = isLiveInMarket;
+	}
+	public Long getVersion() {
+		return Version;
 	}
 	
 	

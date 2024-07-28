@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeRequestDTO;
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeResponseDTO;
 import com.ndr.stockexchanger.service.StockExchangeService;
-import com.ndr.stockexchanger.service.StockService;
 
 import jakarta.validation.Valid;
 

@@ -32,6 +32,7 @@ public class StockExchangeService {
 		responseDTO.setName(stockExchange.getName());
 		responseDTO.setDescription(stockExchange.getDescription());
 		responseDTO.setIsLiveInMarket(stockExchange.getIsLiveInMarket());
+		responseDTO.setVersion(stockExchange.getVersion());
 		
 		return responseDTO;
 	}

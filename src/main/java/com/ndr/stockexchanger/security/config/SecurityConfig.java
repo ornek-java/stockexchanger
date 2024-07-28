@@ -42,6 +42,8 @@ public class SecurityConfig {
 		List<UserDetails> usersList = new ArrayList<>();
 		usersList.add(new User("stockUser", encoder.encode("pass1234"), 
 									Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
+		usersList.add(new User("stockExchangeUser", encoder.encode("pass1234"), 
+				Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
 		usersList.add(new User("admin", encoder.encode("password1"), 
 				Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
 		return new InMemoryUserDetailsManager(usersList);
@@ -54,7 +56,8 @@ public class SecurityConfig {
 		        .authorizeHttpRequests(auth -> auth
 		                .requestMatchers("/api/v1/stock").hasRole("USER")
 		                .requestMatchers("/api/v1/stock/**").hasRole("USER")
-		                .requestMatchers("/adminResource").hasRole("ADMIN")
+		                .requestMatchers("/api/v1/stock-exchange").hasRole("USER")
+		                .requestMatchers("/api/v1/stock-exchange/***").hasRole("USER")
 		                .requestMatchers("/publicResource").permitAll()
 		            )
 		        .httpBasic(Customizer.withDefaults())

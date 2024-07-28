@@ -6,6 +6,7 @@ public class CreateStockExchangeResponseDTO {
 	private String name;
 	private String description;
 	private Boolean isLiveInMarket;
+	private Long version;
 	
 	
 	public Long getId() {
@@ -32,6 +33,14 @@ public class CreateStockExchangeResponseDTO {
 	public void setIsLiveInMarket(Boolean isLiveInMarket) {
 		this.isLiveInMarket = isLiveInMarket;
 	}
+	public void setVersion(Long version) {
+		this.version = version; 
+		
+	}
+	public Long getVersion() {
+		return version;
+	}
+	
 	
 	
 }
