@@ -6,15 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ndr.stockexchanger.api.dto.PriceUpdateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateResponseDTO;
+import com.ndr.stockexchanger.api.dto.StockUpdatePriceRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockUpdatePriceResponseDTO;
 import com.ndr.stockexchanger.domain.Stock;
 import com.ndr.stockexchanger.repository.StockRepository;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
+@Transactional
 public class StockService {
 
 	@Autowired
@@ -42,7 +45,7 @@ public class StockService {
 	}
 
 
-	public StockCreateResponseDTO updatePrice(Long stockId, @Valid PriceUpdateRequestDTO priceUpdateRequest) {
+	public StockUpdatePriceResponseDTO updatePrice(Long stockId, @Valid StockUpdatePriceRequestDTO priceUpdateRequest) {
 		Optional<Stock> optStock = stockRepository.findById(stockId);
 		if (optStock.isEmpty())
 			return null;
@@ -50,7 +53,7 @@ public class StockService {
 		updateStock.setCurrentPrice(priceUpdateRequest.getNewPrice());
 		updateStock.setLastUpdate(ZonedDateTime.now());
 		updateStock = stockRepository.save(updateStock);
-		return generateStockCreateResponseDTO(updateStock);
+		return generateStockUpdatePriceResponseDTO(updateStock);
 	}
 
 
@@ -59,6 +62,16 @@ public class StockService {
 		responseDTO.setId(stock.getId());
 		responseDTO.setName(stock.getName());
 		responseDTO.setDescription(stock.getDescription());
+		responseDTO.setCurrentPrice(stock.getCurrentPrice());
+		responseDTO.setLastUpdate(stock.getLastUpdate());
+		responseDTO.setVersion(stock.getVersion());
+		
+		return responseDTO;
+	}
+	
+	private StockUpdatePriceResponseDTO generateStockUpdatePriceResponseDTO(Stock stock) {
+		StockUpdatePriceResponseDTO responseDTO = new StockUpdatePriceResponseDTO();
+		responseDTO.setName(stock.getName());
 		responseDTO.setCurrentPrice(stock.getCurrentPrice());
 		responseDTO.setLastUpdate(stock.getLastUpdate());
 		responseDTO.setVersion(stock.getVersion());

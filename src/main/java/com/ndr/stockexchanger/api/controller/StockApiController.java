@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ndr.stockexchanger.api.dto.PriceUpdateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateResponseDTO;
+import com.ndr.stockexchanger.api.dto.StockUpdatePriceRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockUpdatePriceResponseDTO;
 import com.ndr.stockexchanger.service.StockService;
 
 import jakarta.validation.Valid;
@@ -39,10 +40,10 @@ public class StockApiController {
 	}
 	
 	@PatchMapping("/{id}")
-	public ResponseEntity<StockCreateResponseDTO> updatePrice(@PathVariable("id") Long stockId, @Valid @RequestBody PriceUpdateRequestDTO priceUpdateRequest) {
-		StockCreateResponseDTO updatedStockDTO = stockService.updatePrice(stockId, priceUpdateRequest);
-		if ( updatedStockDTO != null ) {
-			return ResponseEntity.status(HttpStatus.OK).body(updatedStockDTO);
+	public ResponseEntity<StockUpdatePriceResponseDTO> updatePrice(@PathVariable("id") Long stockId, @Valid @RequestBody StockUpdatePriceRequestDTO requestDTO) {
+		StockUpdatePriceResponseDTO responseDTO = stockService.updatePrice(stockId, requestDTO);
+		if ( responseDTO != null ) {
+			return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 		}
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}

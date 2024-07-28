@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotNull;
 
-public class PriceUpdateRequestDTO {
+public class StockUpdatePriceRequestDTO {
 
 	@NotNull(message="New Price cannot be null!..")
 	private BigDecimal newPrice;
