@@ -57,7 +57,7 @@ public class SecurityConfig {
 		                .requestMatchers("/api/v1/stock").hasRole("USER")
 		                .requestMatchers("/api/v1/stock/**").hasRole("USER")
 		                .requestMatchers("/api/v1/stock-exchange").hasRole("USER")
-		                .requestMatchers("/api/v1/stock-exchange/***").hasRole("USER")
+		                .requestMatchers("/api/v1/stock-exchange/**").hasRole("USER")
 		                .requestMatchers("/publicResource").permitAll()
 		            )
 		        .httpBasic(Customizer.withDefaults())

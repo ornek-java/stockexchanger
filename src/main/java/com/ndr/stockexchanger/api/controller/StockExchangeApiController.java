@@ -32,7 +32,7 @@ public class StockExchangeApiController {
 		return responseDto;
 	}
 	
-	@PatchMapping("/{name}")
+	@PostMapping("/{name}")
 	public ResponseEntity<StockDTO> updatePrice(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
 		try {
 		if ( !stockExchangeService.addStock(stockExchangeName, requestDTO) ) {
