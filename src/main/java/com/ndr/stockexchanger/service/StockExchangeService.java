@@ -84,6 +84,21 @@ public class StockExchangeService {
 		
 		return responseDTO;
 	}
+
+	@Transactional
+	public boolean removeStock(String stockExchangeName, @Valid StockExchangeAddStockRequestDTO requestDTO) {
+		StockExchange stockExchange = stockExchangeRepository.findByName(stockExchangeName);
+		Stock stock = stockService.findByName(requestDTO.getStockName());
+		if ( stockExchange == null ||  stock == null ) {
+			return false; // i.e. resource not found
+		}
+		stockExchange.getStocks().remove(stock);
+		if ( stockExchange.getStocks().size() < 5 && stockExchange.isLiveInMarket() ) {
+			stockExchange.setLiveInMarket(false);
+		}
+		stockExchangeRepository.save(stockExchange);
+		return true;
+	}
 	
 	
 }

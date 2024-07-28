@@ -33,7 +33,7 @@ public class StockExchangeApiController {
 		return responseDto;
 	}
 	
-	@PostMapping("/{name}")
+	@PostMapping("/{name}:addStock")
 	public ResponseEntity<StockCreateRequestDTO> addStock(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
 		try {
 		if ( !stockExchangeService.addStock(stockExchangeName, requestDTO) ) {
@@ -54,6 +54,20 @@ public class StockExchangeApiController {
 			return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 		 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			
+	}
+	
+	@PostMapping("/{name}:deleteStock")
+	public ResponseEntity<StockCreateRequestDTO> deleteStock(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
+		try {
+		if ( !stockExchangeService.removeStock(stockExchangeName, requestDTO) ) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		}catch(OptimisticLockException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).build();
+		
 	}
 	
 }
