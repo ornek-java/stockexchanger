@@ -7,9 +7,9 @@ import jakarta.validation.constraints.NotNull;
 
 
 
-public class StockDTO {
+public class StockCreateRequestDTO {
 	
-	private Long id;
+	
 	
 	@NotNull(message = "Name cannot be empty!..")
 	private String name;
@@ -19,21 +19,8 @@ public class StockDTO {
 	
 	@NotNull(message = "Current Price cannot be empty!..")
 	private BigDecimal currentPrice;
+			
 	
-	private ZonedDateTime lastUpdate;
-	
-	public ZonedDateTime getLastUpdate() {
-		return lastUpdate;
-	}
-	public void setLastUpdate(ZonedDateTime lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}

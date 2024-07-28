@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 
 
@@ -33,6 +34,9 @@ public class Stock {
 	
 	@Column(name = "LAST_UPDATE")
 	private ZonedDateTime lastUpdate;
+	
+	@Version
+	private int version;
 
 	@ManyToMany(mappedBy = "stocks")
     private Set<StockExchange> stockExchanges;
@@ -75,6 +79,18 @@ public class Stock {
 
 	public void setLastUpdate(ZonedDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public Set<StockExchange> getStockExchanges() {
+		return stockExchanges;
 	}
 	
 }

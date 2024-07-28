@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ndr.stockexchanger.api.dto.PriceUpdateRequestDTO;
-import com.ndr.stockexchanger.api.dto.StockDTO;
+import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockCreateResponseDTO;
 import com.ndr.stockexchanger.service.StockService;
 
 import jakarta.validation.Valid;
@@ -25,8 +26,8 @@ public class StockApiController {
 	private StockService stockService;
 	
 	@PostMapping
-	public StockDTO createStock(@Valid @RequestBody StockDTO requestStockDto) {
-		StockDTO responseStockDto= stockService.createStock(requestStockDto);
+	public StockCreateResponseDTO createStock(@Valid @RequestBody StockCreateRequestDTO requestStockDto) {
+		StockCreateResponseDTO responseStockDto = stockService.createStock(requestStockDto);
 		return responseStockDto;
 	}
 	
@@ -38,8 +39,8 @@ public class StockApiController {
 	}
 	
 	@PatchMapping("/{id}")
-	public ResponseEntity<StockDTO> updatePrice(@PathVariable("id") Long stockId, @Valid @RequestBody PriceUpdateRequestDTO priceUpdateRequest) {
-		StockDTO updatedStockDTO = stockService.updatePrice(stockId, priceUpdateRequest);
+	public ResponseEntity<StockCreateResponseDTO> updatePrice(@PathVariable("id") Long stockId, @Valid @RequestBody PriceUpdateRequestDTO priceUpdateRequest) {
+		StockCreateResponseDTO updatedStockDTO = stockService.updatePrice(stockId, priceUpdateRequest);
 		if ( updatedStockDTO != null ) {
 			return ResponseEntity.status(HttpStatus.OK).body(updatedStockDTO);
 		}

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeRequestDTO;
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeResponseDTO;
-import com.ndr.stockexchanger.api.dto.StockDTO;
+import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeAddStockRequestDTO;
 import com.ndr.stockexchanger.service.StockExchangeService;
 
@@ -33,7 +33,7 @@ public class StockExchangeApiController {
 	}
 	
 	@PostMapping("/{name}")
-	public ResponseEntity<StockDTO> updatePrice(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
+	public ResponseEntity<StockCreateRequestDTO> updatePrice(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
 		try {
 		if ( !stockExchangeService.addStock(stockExchangeName, requestDTO) ) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
