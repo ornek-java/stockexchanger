@@ -11,6 +11,7 @@ import com.ndr.stockexchanger.api.dto.StockCreateResponseDTO;
 import com.ndr.stockexchanger.api.dto.StockUpdatePriceRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockUpdatePriceResponseDTO;
 import com.ndr.stockexchanger.domain.Stock;
+import com.ndr.stockexchanger.exception.StockCannotBeDeletedException;
 import com.ndr.stockexchanger.repository.StockRepository;
 
 import jakarta.transaction.Transactional;
@@ -36,10 +37,12 @@ public class StockService {
 	}
 
 
-	public boolean deleteStock(Long stockId) {
+	public boolean deleteStock(Long stockId) throws StockCannotBeDeletedException {
 		Optional<Stock> optStock = stockRepository.findById(stockId);
 		if (optStock.isEmpty())
 			return false;
+		if ( optStock.get().getStockExchanges() != null && optStock.get().getStockExchanges().size() > 0 )
+			throw new StockCannotBeDeletedException();
 		stockRepository.deleteById(stockId);
 		return true;
 	}

@@ -15,6 +15,7 @@ import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateResponseDTO;
 import com.ndr.stockexchanger.api.dto.StockUpdatePriceRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockUpdatePriceResponseDTO;
+import com.ndr.stockexchanger.exception.StockCannotBeDeletedException;
 import com.ndr.stockexchanger.service.StockService;
 
 import jakarta.validation.Valid;
@@ -34,8 +35,13 @@ public class StockApiController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteStock(@PathVariable("id") Long stockId) {
-		if ( !stockService.deleteStock(stockId) )
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		
+		try {
+			if ( !stockService.deleteStock(stockId) )
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} catch (StockCannotBeDeletedException e) {
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+		}
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
