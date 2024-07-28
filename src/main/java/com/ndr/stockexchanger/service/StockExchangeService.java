@@ -79,7 +79,7 @@ public class StockExchangeService {
 		responseDTO.setIsLiveInMarket(stockExchange.isLiveInMarket());
 		stockExchange.getStocks().forEach(stock -> 
 							{
-								responseDTO.getStockDTO().add(stockService.generateStockCreateResponseDTO(stock));
+								responseDTO.getStockDTO().add(stockService.generateStockListResponseDTO(stock));
 							});
 		
 		return responseDTO;
