@@ -2,12 +2,14 @@ package com.ndr.stockexchanger.domain;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 
@@ -31,7 +33,9 @@ public class Stock {
 	
 	@Column(name = "LAST_UPDATE")
 	private ZonedDateTime lastUpdate;
-	
+
+	@ManyToMany(mappedBy = "stocks")
+    private Set<StockExchange> stockExchanges;
 
 	public Long getId() {
 		return id;

@@ -8,4 +8,6 @@ import com.ndr.stockexchanger.domain.StockExchange;
 @Repository
 public interface StockExchangeRepository extends CrudRepository<StockExchange, Long>{
 
+	StockExchange findByName(String stockExchangeName);
+
 }
