@@ -1,8 +1,5 @@
 package com.ndr.stockexchanger.domain;
 
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
-
 @Entity
-@Table(name="STOCKS")
-public class Stock {
-	
+@Table(name="STOCK_EXCHANGES")
+public class StockExchange {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,52 +20,35 @@ public class Stock {
 	
 	@Column(name = "DESCRIPTION")
 	private String description;
-
-	@Column(name = "CURRENT_PRICE")
-	private BigDecimal currentPrice;
 	
-	@Column(name = "LAST_UPDATE")
-	private ZonedDateTime lastUpdate;
+	@Column(name = "LIVE_IN_MARKET")
+	private Boolean isLiveInMarket;
 	
-
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public BigDecimal getCurrentPrice() {
-		return currentPrice;
+	public Boolean getIsLiveInMarket() {
+		return isLiveInMarket;
 	}
-
-	public void setCurrentPrice(BigDecimal currentPrice) {
-		this.currentPrice = currentPrice;
+	public void setIsLiveInMarket(Boolean isLiveInMarket) {
+		this.isLiveInMarket = isLiveInMarket;
 	}
-
-	public ZonedDateTime getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(ZonedDateTime lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+	
 	
 }
