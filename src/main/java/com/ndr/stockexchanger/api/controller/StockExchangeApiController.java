@@ -3,7 +3,7 @@ package com.ndr.stockexchanger.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +14,7 @@ import com.ndr.stockexchanger.api.dto.CreateStockExchangeRequestDTO;
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeResponseDTO;
 import com.ndr.stockexchanger.api.dto.StockCreateRequestDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeAddStockRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockExchangeListResponseDTO;
 import com.ndr.stockexchanger.service.StockExchangeService;
 
 import jakarta.persistence.OptimisticLockException;
@@ -33,7 +34,7 @@ public class StockExchangeApiController {
 	}
 	
 	@PostMapping("/{name}")
-	public ResponseEntity<StockCreateRequestDTO> updatePrice(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
+	public ResponseEntity<StockCreateRequestDTO> addStock(@PathVariable("name") String stockExchangeName, @Valid @RequestBody StockExchangeAddStockRequestDTO requestDTO) {
 		try {
 		if ( !stockExchangeService.addStock(stockExchangeName, requestDTO) ) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -44,6 +45,15 @@ public class StockExchangeApiController {
 		
 		return ResponseEntity.status(HttpStatus.OK).build();
 		
+	}
+	
+	@GetMapping("/{name}")
+	public ResponseEntity<StockExchangeListResponseDTO> getStockExchange(@PathVariable("name") String stockExchangeName) {
+		StockExchangeListResponseDTO responseDTO = stockExchangeService.getStockExchange(stockExchangeName);
+		if ( responseDTO != null )
+			return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+		 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			
 	}
 	
 }

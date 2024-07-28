@@ -1,5 +1,6 @@
 package com.ndr.stockexchanger.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -28,7 +29,7 @@ public class StockExchange {
 	private String description;
 	
 	@Column(name = "LIVE_IN_MARKET")
-	private Boolean isLiveInMarket;
+	private boolean isLiveInMarket;
 	
 	@Version
 	private Long Version;
@@ -39,7 +40,7 @@ public class StockExchange {
         joinColumns = @JoinColumn(name = "stock_exchange_id"),
         inverseJoinColumns = @JoinColumn(name = "stock_id")
     )
-    private Set<Stock> stocks;
+    private Set<Stock> stocks = new HashSet<>();
 	
 	
 	
@@ -61,12 +62,7 @@ public class StockExchange {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Boolean getIsLiveInMarket() {
-		return isLiveInMarket;
-	}
-	public void setIsLiveInMarket(Boolean isLiveInMarket) {
-		this.isLiveInMarket = isLiveInMarket;
-	}
+	
 	public Long getVersion() {
 		return Version;
 	}
@@ -77,5 +73,12 @@ public class StockExchange {
 	public void setStocks(Set<Stock> stocks) {
 		this.stocks = stocks;
 	}
+	public boolean isLiveInMarket() {
+		return isLiveInMarket;
+	}
+	public void setLiveInMarket(boolean isLiveInMarket) {
+		this.isLiveInMarket = isLiveInMarket;
+	}
+	
 	
 }

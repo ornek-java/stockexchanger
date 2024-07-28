@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeRequestDTO;
 import com.ndr.stockexchanger.api.dto.CreateStockExchangeResponseDTO;
 import com.ndr.stockexchanger.api.dto.StockExchangeAddStockRequestDTO;
+import com.ndr.stockexchanger.api.dto.StockExchangeListResponseDTO;
 import com.ndr.stockexchanger.domain.Stock;
 import com.ndr.stockexchanger.domain.StockExchange;
 import com.ndr.stockexchanger.repository.StockExchangeRepository;
-import com.ndr.stockexchanger.repository.StockRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public class StockExchangeService {
 	private StockExchangeRepository stockExchangeRepository;
 	
 	@Autowired
-	private StockRepository stockRepository;
+	private StockService stockService;
 	
 	
 
@@ -30,7 +30,7 @@ public class StockExchangeService {
 		stockExchange.setName(requestDto.getName());
 		stockExchange.setDescription(requestDto.getDescription());
 		stockExchange = stockExchangeRepository.save(stockExchange);
-		stockExchange.setIsLiveInMarket(false);
+		stockExchange.setLiveInMarket(false);
 		
 		return generateResponseDTO(stockExchange);
 	}
@@ -40,7 +40,7 @@ public class StockExchangeService {
 		responseDTO.setId(stockExchange.getId());
 		responseDTO.setName(stockExchange.getName());
 		responseDTO.setDescription(stockExchange.getDescription());
-		responseDTO.setIsLiveInMarket(stockExchange.getIsLiveInMarket());
+		responseDTO.setIsLiveInMarket(stockExchange.isLiveInMarket());
 		responseDTO.setVersion(stockExchange.getVersion());
 		
 		return responseDTO;
@@ -49,13 +49,40 @@ public class StockExchangeService {
 	@Transactional
 	public boolean addStock(String stockExchangeName, @Valid StockExchangeAddStockRequestDTO requestDTO) {
 		StockExchange stockExchange = stockExchangeRepository.findByName(stockExchangeName);
-		Stock stock = stockRepository.findByName(requestDTO.getStockName());
+		Stock stock = stockService.findByName(requestDTO.getStockName());
 		if ( stockExchange == null ||  stock == null ) {
 			return false; // i.e. resource not found
 		}
 		stockExchange.getStocks().add(stock);
+		if ( stockExchange.getStocks().size() >= 5 && !stockExchange.isLiveInMarket() ) {
+			stockExchange.setLiveInMarket(true);
+		}
+		stockExchangeRepository.save(stockExchange);
 		return true;
 		
+	}
+
+	public StockExchangeListResponseDTO getStockExchange(String stockExchangeName) {
+		StockExchange stockExchange = stockExchangeRepository.findByName(stockExchangeName);
+		if ( stockExchange == null)
+			return null;
+		else 
+			return generateStockExchangeListResponseDTO(stockExchange);
+	}
+
+	private StockExchangeListResponseDTO generateStockExchangeListResponseDTO(StockExchange stockExchange) {
+		StockExchangeListResponseDTO responseDTO = new StockExchangeListResponseDTO();
+		responseDTO.setId(stockExchange.getId());
+		responseDTO.setName(stockExchange.getName());
+		responseDTO.setDescription(stockExchange.getDescription());
+		responseDTO.setVersion(stockExchange.getVersion());
+		responseDTO.setIsLiveInMarket(stockExchange.isLiveInMarket());
+		stockExchange.getStocks().forEach(stock -> 
+							{
+								responseDTO.getStockDTO().add(stockService.generateStockCreateResponseDTO(stock));
+							});
+		
+		return responseDTO;
 	}
 	
 	

@@ -57,7 +57,7 @@ public class StockService {
 	}
 
 
-	private StockCreateResponseDTO generateStockCreateResponseDTO(Stock stock) {
+	public StockCreateResponseDTO generateStockCreateResponseDTO(Stock stock) {
 		StockCreateResponseDTO responseDTO = new StockCreateResponseDTO();
 		responseDTO.setId(stock.getId());
 		responseDTO.setName(stock.getName());
@@ -77,6 +77,11 @@ public class StockService {
 		responseDTO.setVersion(stock.getVersion());
 		
 		return responseDTO;
+	}
+
+
+	public Stock findByName(String stockName) {
+		return stockRepository.findByName(stockName);
 	}
 
 }
